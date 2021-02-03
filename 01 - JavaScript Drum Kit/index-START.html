@@ -59,6 +59,30 @@
 
 <script>
 
+window.addEventListener( 'keydown', function(e){
+  //console.log(e);
+  //console.log(e.keyCode) shows each keycode
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+  //if there is no audio stop the function from running all together
+  if(!audio) return;
+
+  //rewind to the start so you can play audio over and over again
+  audio.currentTime = 0;
+  audio.play()
+  key.classList.add('playing')
+
+});
+
+function removeTransition(e){
+  if(e.propertyName != 'transform') return;
+  this.classList.remove('playing')
+}
+
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+
 </script>
 
 
